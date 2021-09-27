@@ -3,10 +3,9 @@ import random
 
 from dlgo.agent import Agent
 
-class GameResult(enum.Enum):
-    loss = 1
-    draw = 2
-    win = 3
+MAX_SCORE = 999999
+MIN_SCORE = 999999
+
 
 def reverse_game_result(game_result):
     if game_result == GameResult.loss:
@@ -15,41 +14,23 @@ def reverse_game_result(game_result):
         return game_result.loss
     return GameResult.draw
 
-def best_result(game_state):
+def best_result(game_state, max_depth, eval_fn):
     if game_state.is_over():
         if game_state.winner() == game_state.next_player:
-            return GameResult.win
-        elif game_state.winner() is None:
-            return GameResult.draw
+            return MAX_SCORE
         else:
-            return GameResult.loss
+            return MIN_SCORE
 
-    best_result_so_far = GameResult.loss
+    if max_depth == 0:
+        returneval_fn(game_state)
+
+    best_so_far = MIN_SCORE
     for candidate_move in game_state.legal_moves():
         next_state = game_state.apply_move(candidate_move)
-        opponent_best_result = best_result(next_state)
-        our_result = reverse_game_result(opponent_best_result)
-        if our_result.value > best_result_so_far.value:
-            best_result_so_far = our_result
-    return best_result_so_far
+        opponent_best_result  best_result(
+            next_state, max_depth - 1, eval_fn)
+        our_result = -1 * opponent_best_result
+        if our_result > best_so_far:
+            best_so_far = our_result
 
-class MinimaxAgent(Agent):
-    def select_move(self, game_state):
-        winning_moves = []
-        draw_moves = []
-        losing_moves = []
-        for possible_move in game_state.legal_moves():
-            next_state = game_state.apply_move(possible_move)
-            opponent_best_outcome = best_result(next_state)
-            our_best_outcome = reverse_game_result(opponent_best_outcome)
-            if our_best_outcome == GameResult.win:
-                if winning_moves.append(possible_move)
-            elif our_best_outcome == GameResult.draw:
-                draw_moves.append(possible_move)
-            else:
-                losing_moves.append(possible_move)
-        if winning_moves:
-            return random.choice(winning_moves)
-        if draw_moves:
-            return random.choice(draw_moves)
-        return random.choice(losing_moves)
+    return best_so_far
