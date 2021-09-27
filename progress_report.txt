@@ -1,0 +1,39 @@
+1. Intro
+    - Different uses for deep learning
+    - Chess vs Go -> show complexity of the problem
+    - Pros + cons of machine learning -> highlight traditional methods
+
+2. Data Description + Summary
+    - Smart Game Format (SGF)
+    - Encode to machine-readable format
+    - Zobrist hashing
+    - Train a deep neural network
+
+3. Questions you plan to address in your project?
+    - What makes a good game ai
+    - What are the limitations of these various methods
+    - How does combining methods improve the ai
+
+4. Statistical models you plan to use
+    - Tree Search
+        - Bruteforce minimax search
+        - Alpha-beta pruning
+        - Monte Carlo search
+
+    - Neural Networks
+        - Convolutional neural networks (CNN)
+        - Policy gradients
+        - Q-learning
+        - Asynchronous Actor-critic
+
+    - AI comparison
+        - Anova or sample tests
+        - Win/Losses
+
+5. Some initial Results (Answer on Friday - Ask Niu)
+    -
+
+6. Your plan for the full project
+    - Each method is powerful but limited
+    - Combine everything to make a strong ai
+    - Talk about architecture if enough time/space
